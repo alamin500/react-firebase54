@@ -23,7 +23,7 @@ const App = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [isLogin, setIsLogin] = useState(false);
-  // const [userDataAll, setUserDataAll] = useState();
+  const [userDataAll, setUserDataAll] = useState();
 
   const handleGoogleSingIn = () => {
     signInWithPopup(auth, googleProvider).then((result) => {
@@ -40,32 +40,6 @@ const App = () => {
       return;
     }
     isLogin ? processLogin(email, password) : createNewUser(email, password);
-
-    // if (password.length < 6) {
-    //   setError("Password must be at least long");
-    //   return;
-    // }
-    // if (!/(?=.*[A-Z].*[A-Z])/.test(password)) {
-    //   setError("Password must contain 2 upper case");
-    //   return;
-    // }
-    // if (!/(?=.*[0-9].*[0-9])/.test(password)) {
-    //   setError("Number den nai");
-    //   return;
-    // }
-    // if (!/(?=.*[!@#$&*])/.test(password)) {
-    //   setError("anchor den nai");
-    //   return;
-    // }
-    // createUserWithEmailAndPassword(auth, email, password)
-    //   .then((result) => {
-    //     const user = result.user;
-    //     console.log(user);
-    //     setError("");
-    //   })
-    //   .catch((error) => {
-    //     setError(error.message);
-    //   });
   };
 
   const handleNameChange = (e) => {
@@ -93,21 +67,21 @@ const App = () => {
       .catch((error) => {
         setError(error.message);
       });
-    // dataAll();
+    dataAll();
   };
 
-  // const dataAll = () => {
-  //   if (user !== null) {
-  //     user.providerData.forEach((profile) => {
-  //       // setUserDataAll(profile);
-  //       console.log("Sign-in provider: " + profile.providerId);
-  //       console.log("  Provider-specific UID: " + profile.uid);
-  //       console.log("  Name: " + profile.displayName);
-  //       console.log("  Email: " + profile.email);
-  //       console.log("  Photo URL: " + profile.photoURL);
-  //     });
-  //   }
-  // };
+  const dataAll = () => {
+    if (user !== null) {
+      user.providerData.forEach((profile) => {
+        setUserDataAll(profile);
+        console.log("Sign-in provider: " + profile.providerId);
+        console.log("  Provider-specific UID: " + profile.uid);
+        console.log("  Name: " + profile.displayName);
+        console.log("  Email: " + profile.email);
+        console.log("  Photo URL: " + profile.photoURL);
+      });
+    }
+  };
 
   const createNewUser = (email, password) => {
     createUserWithEmailAndPassword(auth, email, password)
@@ -214,7 +188,7 @@ const App = () => {
         </button>
       </form>
       <div>---------------------</div>
-      {/* <h1>{userDataAll}</h1> */}
+      <h1>{userDataAll?.email}</h1>
       <br />
       <br />
       <br />
